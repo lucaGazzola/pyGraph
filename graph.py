@@ -44,7 +44,7 @@ class Graph:
         return adj
 
     # returns the shortest path between two vertices using dijkstra's algorithm
-    def a_star(self, start_vertex, end_vertex, heuristic=None):
+    def dijkstra(self, start_vertex, end_vertex):
 
         # trivial
         if start_vertex == end_vertex:
@@ -61,10 +61,7 @@ class Graph:
 
         for vertex in self.vertices:
             if vertex.label == start_vertex:
-                if heuristic:
-                    distance[vertex.label] = heuristic[vertex.label]
-                else:
-                    distance[vertex.label] = 0
+                distance[vertex.label] = 0
                 continue
             distance[vertex.label] = None
 
@@ -80,20 +77,12 @@ class Graph:
             # for each vertex adjecent to the current one, if they have not already been visited, update distance and previous
             for v in self.adj_list(current_vertex):
                 if v in not_visited_set:
-                    if heuristic:
-                        if not distance[v]:
-                            distance[v] = distance[current_vertex] + self.get_weight(v,current_vertex) + heuristic[v]
-                            previous[v] = current_vertex
-                        elif distance[v] > distance[current_vertex] + self.get_weight(v,current_vertex) + heuristic[v]:
-                            distance[v] = distance[current_vertex] + self.get_weight(v,current_vertex) + heuristic[v]
-                            previous[v] = current_vertex
-                    else:
-                        if not distance[v]:
-                            distance[v] = distance[current_vertex] + self.get_weight(v,current_vertex)
-                            previous[v] = current_vertex
-                        elif distance[v] > distance[current_vertex] + self.get_weight(v,current_vertex):
-                            distance[v] = distance[current_vertex] + self.get_weight(v,current_vertex)
-                            previous[v] = current_vertex
+                    if not distance[v]:
+                        distance[v] = distance[current_vertex] + self.get_weight(v,current_vertex)
+                        previous[v] = current_vertex
+                    elif distance[v] > distance[current_vertex] + self.get_weight(v,current_vertex):
+                        distance[v] = distance[current_vertex] + self.get_weight(v,current_vertex)
+                        previous[v] = current_vertex
 
             # remove current vertex, since we already visited it
             not_visited_set.remove(current_vertex)
@@ -105,7 +94,7 @@ class Graph:
             for v in not_visited_set:
 
                 # here get_weight is used to check if two vertices are connected
-                if self.get_weight(v,current_vertex):
+                if distance[v]:
                     if not min_dist:
                         min_dist = distance[v]
                         min_vertex = v

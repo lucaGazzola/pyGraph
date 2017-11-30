@@ -6,9 +6,9 @@ from vertex import Vertex
 
 ab = Edge('a','b',4)
 ae = Edge('a','e',7)
-ac = Edge('a','c',3)
+ac = Edge('a','c',1)
 cb = Edge('c','b',6)
-ce = Edge('c','e',8)
+ce = Edge('c','e',1)
 cd = Edge('c','d',11)
 ed = Edge('e','d',2)
 bd = Edge('d','b',5)
@@ -37,4 +37,4 @@ graph = Graph(vertices,edges)
 
 # test
 
-print(graph.a_star('a','f',{'a':20,'b':17,'c':17,'d':10,'e':15,'f':0,'g':10}))
+print(graph.dijkstra('a','f'))
