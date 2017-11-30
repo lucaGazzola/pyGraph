@@ -37,4 +37,4 @@ graph = Graph(vertices,edges)
 
 # test
 
-print(graph.dijkstra('a','f'))
+print(graph.a_star('a','f',{'a':20,'b':17,'c':17,'d':10,'e':15,'f':0,'g':10}))
