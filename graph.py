@@ -93,7 +93,7 @@ class Graph:
             # determine which vertex to consider next (the one with the minimum distance from the start)
             for v in not_visited_set:
 
-                # here get_weight is used to check if two vertices are connected
+                # if the vertex has already been touched, determine the one with the minimum path distance so far
                 if distance[v]:
                     if not min_dist:
                         min_dist = distance[v]

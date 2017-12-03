@@ -4,32 +4,44 @@ from vertex import Vertex
 
 # edges
 
-ab = Edge('a','b',4)
-ae = Edge('a','e',7)
-ac = Edge('a','c',1)
-cb = Edge('c','b',6)
-ce = Edge('c','e',1)
-cd = Edge('c','d',11)
-ed = Edge('e','d',2)
-bd = Edge('d','b',5)
-eg = Edge('e','g',5)
-dg = Edge('g','d',10)
-df = Edge('d','f',2)
-gf = Edge('g','f',3)
+sa = Edge('s','a',7)
+sb = Edge('s','b',2)
+sc = Edge('s','c',3)
+ad = Edge('a','d',4)
+ab = Edge('a','b',3)
+df = Edge('d','f',5)
+db = Edge('d','b',4)
+bh = Edge('b','h',1)
+hf = Edge('h','f',3)
+hg = Edge('h','g',2)
+ge = Edge('g','e',2)
+ek = Edge('e','k',5)
+ki = Edge('k','i',4)
+jk = Edge('j','k',4)
+ij = Edge('i','j',6)
+li = Edge('l','i',4)
+jl = Edge('j','l',4)
+lc = Edge('l','c',2)
 
-edges = [ab,ae,ac,cb,ce,cd,ed,bd,eg,dg,df,gf]
+edges = [sa,sb,sc,ad,ab,df,db,bh,hf,hg,ge,ek,ki,jk,ij,li,jl,lc]
 
 # vertices
 
-a = Vertex('a',[ab,ae,ac])
-b = Vertex('b',[ab,bd,cb])
-c = Vertex('c',[ac,cd,cb,ce])
-d = Vertex('d',[bd,cd,dg,ed,df])
-e = Vertex('e',[eg,ce,ae,ed])
-f = Vertex('f',[df,gf])
-g = Vertex('g',[eg,gf,dg])
+s = Vertex('s',[sa,sb,sc])
+a = Vertex('a',[sa,ad,ab])
+b = Vertex('b',[db,ab,bh,sb])
+c = Vertex('c',[sc,lc])
+d = Vertex('d',[ad,df,db])
+e = Vertex('e',[ek,ge])
+f = Vertex('f',[df,hf])
+g = Vertex('g',[ge,hg])
+h = Vertex('h',[hf,hg,bh])
+k = Vertex('k',[ek,ki,jk])
+l = Vertex('l',[li,jl,lc])
+i = Vertex('i',[li,ij,ki])
+j = Vertex('j',[jl,ij,jk])
 
-vertices = [a,b,c,d,e,f,g]
+vertices = [a,b,c,d,e,f,g,h,k,l,i,j,s]
 
 # graph
 
@@ -37,4 +49,9 @@ graph = Graph(vertices,edges)
 
 # test
 
-print(graph.dijkstra('a','f'))
+print(graph)
+
+start = 's'
+end = 'e'
+
+print('shortest path from '+start+' to '+end+': '+str(graph.dijkstra('s','e')))
