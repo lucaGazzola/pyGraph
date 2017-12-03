@@ -44,7 +44,7 @@ class Graph:
         return adj
 
     # returns the shortest path between two vertices using dijkstra's algorithm
-    def dijkstra(self, start_vertex, end_vertex):
+    def dijkstra(self, start_vertex, end_vertex, heuristic = None):
 
         # trivial
         if start_vertex == end_vertex:
@@ -92,16 +92,25 @@ class Graph:
 
             # determine which vertex to consider next (the one with the minimum distance from the start)
             for v in not_visited_set:
-
-                # if the vertex has already been touched, determine the one with the minimum path distance so far
-                if distance[v]:
-                    if not min_dist:
-                        min_dist = distance[v]
-                        min_vertex = v
-                    elif distance[v] < min_dist:
-                        min_dist = distance[v]
-                        min_vertex = v
-
+                # if a-star's algorithm heuristic is used
+                if heuristic:
+                    # check if the vertex has already been touched, then check if its path length is the current minimum
+                    if distance[v]:
+                        if not min_dist:
+                            min_dist = distance[v] + heuristic[v]
+                            min_vertex = v
+                        elif distance[v] + heuristic[v] < min_dist:
+                            min_dist = distance[v] + heuristic[v]
+                            min_vertex = v
+                else:
+                    # check if the vertex has already been touched, then check if its path length plus the heuristic metric is the current minimum
+                    if distance[v]:
+                        if not min_dist:
+                            min_dist = distance[v]
+                            min_vertex = v
+                        elif distance[v] < min_dist:
+                            min_dist = distance[v]
+                            min_vertex = v
             current_vertex = min_vertex
 
             # if we reached the end vertex, call get_shortest_path and return it

@@ -54,4 +54,6 @@ print(graph)
 start = 's'
 end = 'e'
 
-print('shortest path from '+start+' to '+end+': '+str(graph.dijkstra(start,end)))
+heuristic = dict({('a',9),('b',7),('c',8),('d',8),('e',0),('f',6),('g',3),('h',6),('k',3),('l',6),('i',4),('j',4),('s',10)})
+
+print('shortest path from '+start+' to '+end+': '+str(graph.dijkstra(start,end,heuristic)))
