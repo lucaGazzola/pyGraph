@@ -54,4 +54,4 @@ print(graph)
 start = 's'
 end = 'e'
 
-print('shortest path from '+start+' to '+end+': '+str(graph.dijkstra('s','e')))
+print('shortest path from '+start+' to '+end+': '+str(graph.dijkstra(start,end)))
