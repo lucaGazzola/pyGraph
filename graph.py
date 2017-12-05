@@ -1,25 +1,11 @@
 from node import Node
-from edge import Edge
 
 
 class Graph:
 
     # constructor
-    def __init__(self, nodes, edges):
+    def __init__(self, nodes):
         self.nodes = nodes
-        self.edges = edges
-
-    # returns the weight of an edge, can also be used to check if two edges are connected
-    def get_weight(self, node_a, node_b):
-
-        for e in self.edges:
-            if e.node_a == node_a:
-                if e.node_b == node_b:
-                    return e.weight
-            if e.node_a == node_b:
-                if e.node_b == node_a:
-                    return e.weight
-        return None
 
     # returns the shortest path between two nodes given a previous dictionary structure from the dijkstra algorithm
     def get_shortest_path(self,previous, start, end, path):
@@ -30,21 +16,14 @@ class Graph:
         path.append(end)
         return self.get_shortest_path(previous, start, previous[end], path)
 
-    # returns a list containing the nodes connected to *node*
-    def adj_list(self, node):
-
-        adj = []
-
-        for e in self.edges:
-            if node == e.node_a:
-                adj.append(e.node_b)
-            if node == e.node_b:
-                adj.append(e.node_a)
-
-        return adj
+    def get_node_by_label(self, label):
+        for n in self.nodes:
+            if n.label == label:
+                return n
+        return None
 
     # returns the shortest path between two nodes using dijkstra's algorithm
-    def dijkstra(self, start_node, end_node, heuristic = None):
+    def dijkstra(self, start_node, end_node, heuristic=None):
 
         # trivial
         if start_node == end_node:
@@ -60,32 +39,31 @@ class Graph:
         distance = {}
 
         for node in self.nodes:
-            if node.label == start_node:
-                distance[node.label] = 0
-                continue
             distance[node.label] = None
+        distance[start_node] = 0
 
-        # inizialization of the previous map, that keeps track of which nodes need to be followed to get the shortest path
+        # inizialization of the 'previous' map, keeps track of which nodes need to be followed to get the shortest path
+        # previous[node] = previous_node_on_shortest_path
         previous = {}
 
         # start the loop from *start_node*
-        current_node = start_node
+        current_node = self.get_node_by_label(start_node)
 
         # while we did not visit all the nodes (or we found the end one)
         while len(not_visited_set) != 0:
 
             # for each node adjecent to the current one, if they have not already been visited, update distance and previous
-            for v in self.adj_list(current_node):
+            for v in current_node.edges:
                 if v in not_visited_set:
                     if not distance[v]:
-                        distance[v] = distance[current_node] + self.get_weight(v,current_node)
-                        previous[v] = current_node
-                    elif distance[v] > distance[current_node] + self.get_weight(v,current_node):
-                        distance[v] = distance[current_node] + self.get_weight(v,current_node)
-                        previous[v] = current_node
+                        distance[v] = distance[current_node.label] + current_node.get_weight(v)
+                        previous[v] = current_node.label
+                    elif distance[v] > distance[current_node.label] + current_node.get_weight(v):
+                        distance[v] = distance[current_node.label] + current_node.get_weight(v)
+                        previous[v] = current_node.label
 
             # remove current node, since we already visited it
-            not_visited_set.remove(current_node)
+            not_visited_set.remove(current_node.label)
 
             min_dist = None
             min_node = None
@@ -111,10 +89,10 @@ class Graph:
                         elif distance[v] < min_dist:
                             min_dist = distance[v]
                             min_node = v
-            current_node = min_node
+            current_node = self.get_node_by_label(min_node)
 
             # if we reached the end node, call get_shortest_path and return it
-            if current_node == end_node:
+            if current_node.label == end_node:
                 return self.get_shortest_path(previous, start_node, end_node, [])
 
         # if no path was found
