@@ -1,10 +1,10 @@
 class Edge:
 
-    def __init__(self, vertex_a, vertex_b, weight):
-        self.vertex_a = vertex_a
-        self.vertex_b = vertex_b
+    def __init__(self, node_a, node_b, weight):
+        self.node_a = node_a
+        self.node_b = node_b
         self.weight = weight
 
     def __str__(self):
-        return self.vertex_a+'-'+self.vertex_b+' '+str(self.weight)
+        return self.node_a+'-'+self.node_b+' '+str(self.weight)
 

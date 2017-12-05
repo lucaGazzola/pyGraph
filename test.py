@@ -1,6 +1,6 @@
 from graph import Graph
 from edge import Edge
-from vertex import Vertex
+from node import Node
 
 # edges
 
@@ -27,19 +27,19 @@ edges = [sa,sb,sc,ad,ab,df,db,bh,hf,hg,ge,ek,ki,jk,ij,li,jl,lc]
 
 # vertices
 
-s = Vertex('s',[sa,sb,sc])
-a = Vertex('a',[sa,ad,ab])
-b = Vertex('b',[db,ab,bh,sb])
-c = Vertex('c',[sc,lc])
-d = Vertex('d',[ad,df,db])
-e = Vertex('e',[ek,ge])
-f = Vertex('f',[df,hf])
-g = Vertex('g',[ge,hg])
-h = Vertex('h',[hf,hg,bh])
-k = Vertex('k',[ek,ki,jk])
-l = Vertex('l',[li,jl,lc])
-i = Vertex('i',[li,ij,ki])
-j = Vertex('j',[jl,ij,jk])
+s = Node('s',[sa,sb,sc])
+a = Node('a',[sa,ad,ab])
+b = Node('b',[db,ab,bh,sb])
+c = Node('c',[sc,lc])
+d = Node('d',[ad,df,db])
+e = Node('e',[ek,ge])
+f = Node('f',[df,hf])
+g = Node('g',[ge,hg])
+h = Node('h',[hf,hg,bh])
+k = Node('k',[ek,ki,jk])
+l = Node('l',[li,jl,lc])
+i = Node('i',[li,ij,ki])
+j = Node('j',[jl,ij,jk])
 
 vertices = [a,b,c,d,e,f,g,h,k,l,i,j,s]
 
